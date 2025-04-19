@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameTracker - La tua community di videogiochi</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <header>
+        <div style="display: flex; align-items: center;">
+            <div class="hamburger-menu" id="hamburgerMenu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="logo">Game<span>Tracker</span></div>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Giochi</a></li>
+                <li><a href="#">Community</a></li>
+                <li><a href="#">Forum</a></li>
+                <li><a href="#">Classifiche</a></li>
+            </ul>
+        </nav>
+        <div class="auth-buttons">
+            <% if (user) { %>
+                <button class="button button-primary" id="logoutBtn">Esci</button>
+            <% } else { %>
+                <button class="button button-secondary" id="loginBtn">Accedi</button>
+                <button class="button button-primary" id="registerBtn">Registrati</button>
+            <% } %>
+        </div>
+    </header>
+
+    <!-- Sidebar Menu -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">Game<span>Tracker</span></div>
+            <div class="close-sidebar" id="closeSidebar">&times;</div>
+        </div>
+        <div class="sidebar-user">
+            <% if (user) { %>
+                <div class="user-avatar">
+                    <%= user.username && user.username.charAt(0).toUpperCase() %>
+                </div>
+                <div>
+                    <div><%= user.username || 'Ospite' %></div>
+                    <a href="#" style="color: var(--secondary); font-size: 0.9rem;">Profilo</a>
+                </div>
+            <% } else { %>
+                <div class="user-avatar">G</div>
+                <div>
+                    <div>Ospite</div>
+                    <a href="#" style="color: var(--secondary); font-size: 0.9rem;">Accedi</a>
+                </div>
+            <% } %>
+        </div>
+        <!-- Restante contenuto della sidebar invariato -->
+    </div>
+    <div class="overlay" id="overlay"></div>
+
+    <main>
+        <section class="hero">
+            <h1 class="home-title">Benvenuto su <span class="game">Game</span><span class="tracker">Tracker</span></h1>
+            <p>Scopri, valuta e condividi le tue esperienze di gioco con una community di appassionati.</p>
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="Cerca giochi, discussioni, guide...">
+                <span class="search-icon">🔍</span>
+            </div>
+            <button class="button button-primary">Esplora Giochi</button>
+        </section>
+
+        <!-- Sezione Trending con grafico e commenti -->
+        <!-- Resto del codice invariato -->
+         <section class="trending-section">
+            <div class="section-header">
+                <h2 class="section-title">Giochi in Tendenza</h2>
+                <a href="#" class="see-all">Vedi tutti</a>
+            </div>
+            <div class="trending-container">
+                <div class="trending-chart">
+                    <h3>Attività settimanale</h3>
+                    <div class="chart-container" id="trendingChart">
+                        <!-- I dati del grafico verranno inseriti qui dinamicamente -->
+                    </div>
+                    <div class="chart-labels" id="chartLabels">
+                        <!-- Le etichette del grafico verranno inserite qui dinamicamente -->
+                    </div>
+                </div>
+                <div class="trending-comments">
+                    <h3>Discussioni recenti</h3>
+                    <div id="recentComments">
+                        <!-- I commenti verranno inseriti qui dinamicamente -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="game-section">
+            <div class="section-header">
+                <h2 class="section-title">I Più Votati</h2>
+                <a href="#" class="see-all">Vedi tutti</a>
+            </div>
+            <div class="game-carousel" id="topRatedGames">
+                <!-- I giochi verranno inseriti qui dinamicamente con JavaScript -->
+            </div>
+        </section>
+
+        <section class="game-section">
+            <div class="section-header">
+                <h2 class="section-title">Nuove Uscite</h2>
+                <a href="#" class="see-all">Vedi tutti</a>
+            </div>
+            <div class="game-carousel" id="newReleasesGames">
+                <!-- I giochi verranno inseriti qui dinamicamente con JavaScript -->
+            </div>
+        </section>
+
+        <!-- Sezione Forum -->
+        <section class="game-section">
+            <div class="section-header">
+                <h2 class="section-title">Forum Tematici</h2>
+                <a href="#" class="see-all">Vedi tutti</a>
+            </div>
+            <div class="forum-categories">
+                <div class="forum-category">
+                    <h3>News & Annunci</h3>
+                    <p>Notizie e annunci sul mondo dei videogiochi</p>
+                    <div class="forum-stats">
+                        <span>364 discussioni</span>
+                        <span>Ultimo post: 2 ore fa</span>
+                    </div>
+                </div>
+                <div class="forum-category">
+                    <h3>Guide & Soluzioni</h3>
+                    <p>Guide, trucchi e consigli per completare i tuoi giochi</p>
+                    <div class="forum-stats">
+                        <span>527 discussioni</span>
+                        <span>Ultimo post: 5 ore fa</span>
+                    </div>
+                </div>
+                <div class="forum-category">
+                    <h3>Hardware & Tech</h3>
+                    <p>Discussioni su console, PC gaming e hardware</p>
+                    <div class="forum-stats">
+                        <span>298 discussioni</span>
+                        <span>Ultimo post: ieri</span>
+                    </div>
+                </div>
+                <div class="forum-category">
+                    <h3>Compravendita</h3>
+                    <p>Scambia o vendi i tuoi giochi con altri utenti</p>
+                    <div class="forum-stats">
+                        <span>156 discussioni</span>
+                        <span>Ultimo post: 3 ore fa</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sezione filtri avanzati -->
+        <section class="game-section">
+            <div class="section-header">
+                <h2 class="section-title">Ricerca Avanzata</h2>
+            </div>
+            <div class="filters-container">
+                <div class="filters-header">
+                    <h3>Filtri</h3>
+                </div>
+                <div class="filters-body">
+                    <div class="filter-group">
+                        <label for="genre">Genere</label>
+                        <select id="genre">
+                            <option value="">Tutti i generi</option>
+                            <option value="action">Azione</option>
+                            <option value="adventure">Avventura</option>
+                            <option value="rpg">RPG</option>
+                            <option value="strategy">Strategia</option>
+                            <option value="simulation">Simulazione</option>
+                            <option value="sports">Sport</option>
+                            <option value="racing">Corse</option>
+                            <option value="shooter">Sparatutto</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="platform">Piattaforma</label>
+                        <select id="platform">
+                            <option value="">Tutte le piattaforme</option>
+                            <option value="ps5">PlayStation 5</option>
+                            <option value="ps4">PlayStation 4</option>
+                            <option value="xboxsx">Xbox Series X/S</option>
+                            <option value="xboxone">Xbox One</option>
+                            <option value="switch">Nintendo Switch</option>
+                            <option value="pc">PC</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="rating">Voto minimo</label>
+                        <select id="rating">
+                            <option value="">Qualsiasi voto</option>
+                            <option value="5">5+ stelle</option>
+                            <option value="4">4+ stelle</option>
+                            <option value="3">3+ stelle</option>
+                            <option value="2">2+ stelle</option>
+                            <option value="1">1+ stelle</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="year">Anno di uscita</label>
+                        <select id="year">
+                            <option value="">Qualsiasi anno</option>
+                            <option value="2025">2025</option>
+                            <option value="2024">2024</option>
+                            <option value="2023">2023</option>
+                            <option value="2022">2022</option>
+                            <option value="2021">2021</option>
+                            <option value="older">2020 o precedenti</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="filter-actions">
+                    <button class="button button-secondary">Reimposta</button>
+                    <button class="button button-primary">Applica filtri</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 GameTracker - Tutti i diritti riservati</p>
+        <div class="footer-links">
+            <a href="#">Chi siamo</a>
+            <a href="#">Contattaci</a>
+            <a href="#">Privacy</a>
+            <a href="#">Termini di servizio</a>
+        </div>
+    </footer>
+    <script src="/script.js"></script>
+</body>
+</html>
